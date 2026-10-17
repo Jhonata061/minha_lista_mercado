@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#16834a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Minha Lista">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon.svg">
+<title>Minha Lista de Mercado</title>
+<style>
+:root{--green:#16834a;--green2:#0f6c3b;--pale:#eaf7ef;--ink:#173126;--muted:#718078;--line:#e2eae5;--bg:#f4f8f5;--white:#fff;--red:#c43d3d;--shadow:0 8px 24px #143b2410}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;padding-bottom:calc(28px + env(safe-area-inset-bottom))}
+button,input{font:inherit}button{cursor:pointer;-webkit-tap-highlight-color:transparent}
+.app{max-width:680px;margin:0 auto;padding:env(safe-area-inset-top) 16px 24px}
+header{display:flex;justify-content:space-between;align-items:center;padding:22px 2px 18px}
+.brand{display:flex;align-items:center;gap:11px}.logo{width:46px;height:46px;background:var(--green);border-radius:15px;display:grid;place-items:center;color:#fff;font-size:24px;box-shadow:0 5px 12px #16834a30}
+h1{font-size:21px;letter-spacing:-.5px;margin:0 0 3px}.sub{font-size:12px;color:var(--muted)}
+.pill{border:1px solid #cfe5d6;background:#fff;color:var(--green2);border-radius:999px;padding:9px 12px;font-size:12px;font-weight:700}
+.summary{background:linear-gradient(135deg,#16834a,#0e6537);color:#fff;border-radius:24px;padding:20px;box-shadow:var(--shadow);margin-bottom:16px}
+.summary-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.eyebrow{font-size:12px;opacity:.83;margin-bottom:6px}.total{font-size:34px;font-weight:800;letter-spacing:-1px;line-height:1.1}.budget-box{background:#ffffff20;border:1px solid #ffffff25;border-radius:14px;padding:10px 12px;min-width:112px}.budget-box small{display:block;font-size:11px;opacity:.85;margin-bottom:4px}.budget-box strong{font-size:15px}
+.progress-wrap{margin-top:18px}.progress-label{display:flex;justify-content:space-between;font-size:12px;opacity:.9;margin-bottom:7px}.progress{height:7px;background:#ffffff35;border-radius:99px;overflow:hidden}.bar{height:100%;background:#fff;border-radius:99px;width:0%;transition:width .2s}
+.quickstats{display:flex;gap:10px;margin-top:16px}.stat{flex:1;background:#ffffff16;border-radius:12px;padding:10px}.stat strong{display:block;font-size:16px}.stat span{font-size:11px;opacity:.82}
+.card{background:var(--white);border:1px solid var(--line);border-radius:20px;padding:16px;margin-bottom:14px;box-shadow:var(--shadow)}
+.section-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}.section-title h2{font-size:16px;margin:0}.small-muted{font-size:12px;color:var(--muted)}
+.field-label{display:block;font-size:12px;font-weight:700;color:#516359;margin-bottom:6px}
+input{width:100%;min-width:0;border:1px solid #dce6df;border-radius:12px;background:#fbfdfb;padding:12px;color:var(--ink);outline:none}
+input:focus{border-color:var(--green);box-shadow:0 0 0 3px #16834a15}
+.budget-row{display:flex;gap:9px;align-items:end}.budget-row>div{flex:1}.btn{border:0;border-radius:12px;padding:12px 15px;font-weight:750;font-size:13px}.btn-primary{background:var(--green);color:#fff}.btn-primary:active{background:var(--green2)}.btn-light{background:var(--pale);color:var(--green2)}.btn-ghost{background:#f2f6f3;color:#526359}.btn-danger{background:#fff0f0;color:var(--red)}
+.add-grid{display:grid;grid-template-columns:1fr 100px;gap:10px}.add-grid .full{grid-column:1/-1}.add-bottom{display:grid;grid-template-columns:100px 1fr;gap:10px;margin-top:10px}.add-bottom .btn{align-self:end;min-height:44px}
+.items-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.items-head h2{font-size:16px;margin:0}.filter{display:flex;gap:6px}.filter button{font-size:11px;border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 10px;color:#617168}.filter button.active{background:var(--pale);border-color:#bfe0ca;color:var(--green2);font-weight:750}
+.item{display:flex;align-items:center;gap:11px;padding:13px 0;border-bottom:1px solid #edf1ee}.item:last-child{border-bottom:0;padding-bottom:0}.check{width:23px;height:23px;flex:0 0 23px;border:2px solid #c6d4ca;border-radius:8px;display:grid;place-items:center;background:#fff;color:#fff;padding:0}.item.done .check{background:var(--green);border-color:var(--green)}.check span{font-size:14px;line-height:1}.item-info{flex:1;min-width:0}.item-name{font-weight:700;font-size:14px;overflow-wrap:anywhere}.item-meta{font-size:11px;color:var(--muted);margin-top:4px}.item.done .item-name{text-decoration:line-through;color:#8b9990}.item-price{text-align:right;white-space:nowrap}.item-price strong{display:block;font-size:14px}.item-price small{font-size:10px;color:var(--muted)}.delete{border:0;background:transparent;color:#9aa69e;font-size:19px;padding:5px 0 5px 4px}
+.empty{text-align:center;padding:26px 12px;color:var(--muted)}.empty .emoji{font-size:30px;margin-bottom:8px}.empty strong{display:block;color:var(--ink);margin-bottom:4px;font-size:14px}.empty span{font-size:12px}
+.footer-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}.history-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid #edf1ee}.history-row:last-child{border-bottom:0}.history-row strong{display:block;font-size:13px}.history-row small{color:var(--muted);font-size:11px}.history-actions{display:flex;gap:6px}.history-actions button{border:0;border-radius:9px;padding:8px;background:var(--pale);color:var(--green2);font-size:11px;font-weight:700}
+.notice{font-size:11px;color:var(--muted);text-align:center;padding:4px 10px 16px}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translateX(-50%);background:#173126;color:white;border-radius:999px;padding:11px 16px;font-size:12px;box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:opacity .2s;z-index:10;white-space:nowrap}.toast.show{opacity:1}
+@media(min-width:540px){.app{padding-left:22px;padding-right:22px}.add-grid{grid-template-columns:1fr 120px}.summary{padding:24px}.total{font-size:40px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+  <div class="brand"><div class="logo">🛒</div><div><h1>Minha Lista</h1><div class="sub">Mercado organizado, bolso tranquilo.</div></div></div>
+  <button class="pill" id="newListBtn">＋ Nova lista</button>
+</header>
+
+<section class="summary">
+  <div class="summary-top">
+    <div><div class="eyebrow">Total da compra</div><div class="total" id="grandTotal">R$ 0,00</div></div>
+    <div class="budget-box"><small>Saldo do orçamento</small><strong id="remaining">—</strong></div>
+  </div>
+  <div class="progress-wrap"><div class="progress-label"><span id="budgetLabel">Defina seu orçamento</span><span id="budgetPercent">0%</span></div><div class="progress"><div class="bar" id="budgetBar"></div></div></div>
+  <div class="quickstats"><div class="stat"><strong id="itemCount">0</strong><span>produtos</span></div><div class="stat"><strong id="checkedCount">0</strong><span>no carrinho</span></div><div class="stat"><strong id="pendingCount">0</strong><span>faltando</span></div></div>
+</section>
+
+<section class="card">
+  <div class="section-title"><h2>🎯 Meu orçamento</h2><span class="small-muted">Opcional</span></div>
+  <div class="budget-row"><div><label class="field-label" for="budgetInput">Quanto pretende gastar?</label><input id="budgetInput" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Ex.: 350,00"></div><button class="btn btn-light" id="saveBudget">Salvar</button></div>
+</section>
+
+<section class="card">
+  <div class="section-title"><h2>＋ Adicionar produto</h2><span class="small-muted">Preço por unidade</span></div>
+  <form id="addForm">
+    <div class="add-grid">
+      <div><label class="field-label" for="productName">Nome do produto</label><input id="productName" required maxlength="90" placeholder="Ex.: Arroz 5 kg" autocomplete="off"></div>
+      <div><label class="field-label" for="quantity">Quantidade</label><input id="quantity" type="number" min="0.01" step="0.01" value="1" required inputmode="decimal"></div>
+    </div>
+    <div class="add-bottom"><div><label class="field-label" for="unitPrice">Preço (R$)</label><input id="unitPrice" type="number" min="0" step="0.01" required inputmode="decimal" placeholder="0,00"></div><button class="btn btn-primary" type="submit">Adicionar item</button></div>
+  </form>
+</section>
+
+<section class="card">
+  <div class="items-head"><h2>🧾 Sua lista <span id="listNameLabel" class="small-muted"></span></h2></div>
+  <div class="filter" style="margin-bottom:10px"><button class="active" data-filter="all">Todos</button><button data-filter="pending">Faltando</button><button data-filter="done">No carrinho</button></div>
+  <div id="itemsList"></div>
+  <div class="footer-actions"><button class="btn btn-light" id="finishBtn">✓ Finalizar compra</button><button class="btn btn-ghost" id="clearBtn">Limpar lista</button></div>
+</section>
+
+<section class="card">
+  <div class="section-title"><h2>🕘 Listas anteriores</h2><button class="btn btn-ghost" id="clearHistoryBtn" style="padding:8px 10px">Limpar histórico</button></div>
+  <div id="historyList"></div>
+</section>
+<div class="notice">Seus dados ficam salvos neste aparelho. Para maior segurança, mantenha uma cópia da página.</div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const $ = id => document.getElementById(id);
+const money = n => (Number(n)||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+const dateLabel = d => new Date(d).toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
+const STORAGE_KEY = 'minhaListaMercado_v1';
+let state = loadState();
+let filterMode = 'all';
+let toastTimer;
+function blankList(name='Minha compra'){return {id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),name,createdAt:new Date().toISOString(),budget:0,items:[]}}
+function loadState(){try{const s=JSON.parse(localStorage.getItem(STORAGE_KEY));if(s&&s.current&&Array.isArray(s.history))return s}catch(e){}return {current:blankList(),history:[]}}
+function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state));render()}
+function total(){return state.current.items.reduce((sum,i)=>sum+i.qty*i.price,0)}
+function showToast(msg){$('toast').textContent=msg;$('toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.remove('show'),2200)}
+function render(){
+ const items=state.current.items, sum=total(), budget=Number(state.current.budget)||0, done=items.filter(i=>i.done).length;
+ $('grandTotal').textContent=money(sum);$('remaining').textContent=budget?money(budget-sum):'—';
+ $('remaining').style.color=budget&&sum>budget?'#ffd7d7':'#fff';
+ $('budgetInput').value=budget||'';$('itemCount').textContent=items.length;$('checkedCount').textContent=done;$('pendingCount').textContent=items.length-done;
+ const pct=budget?Math.min(100,(sum/budget)*100):0;$('budgetBar').style.width=pct+'%';$('budgetPercent').textContent=budget?Math.round(sum/budget*100)+'%':'0%';$('budgetLabel').textContent=budget?(sum>budget?'Você passou do orçamento':`De ${money(budget)} planejados`):'Defina seu orçamento';
+ $('listNameLabel').textContent='· '+state.current.name;
+ document.querySelectorAll('[data-filter]').forEach(b=>b.classList.toggle('active',b.dataset.filter===filterMode));
+ const visible=items.filter(i=>filterMode==='all'||(filterMode==='done'?i.done:!i.done));
+ if(!visible.length){$('itemsList').innerHTML=`<div class="empty"><div class="emoji">🛍️</div><strong>${items.length?'Nada por aqui':'Sua lista está vazia'}</strong><span>${items.length?'Escolha outro filtro para ver seus produtos.':'Adicione o primeiro produto acima para começar.'}</span></div>`}
+ else $('itemsList').innerHTML=visible.map(i=>`<div class="item ${i.done?'done':''}"><button class="check" data-check="${i.id}" aria-label="Marcar ${escapeHtml(i.name)}">${i.done?'<span>✓</span>':''}</button><div class="item-info"><div class="item-name">${escapeHtml(i.name)}</div><div class="item-meta">${formatQty(i.qty)} × ${money(i.price)} por unidade</div></div><div class="item-price"><strong>${money(i.qty*i.price)}</strong><small>${i.done?'No carrinho':'Pendente'}</small></div><button class="delete" data-delete="${i.id}" aria-label="Excluir ${escapeHtml(i.name)}">×</button></div>`).join('');
+ $('historyList').innerHTML=state.history.length?state.history.map(h=>`<div class="history-row"><div><strong>${escapeHtml(h.name)}</strong><small>${dateLabel(h.savedAt)} · ${h.items.length} produtos · ${money(h.total)}</small></div><div class="history-actions"><button data-restore="${h.id}">Reabrir</button><button data-history-delete="${h.id}" aria-label="Excluir histórico">×</button></div></div>`).join(''):'<div class="empty" style="padding:18px 8px"><strong>Nenhuma compra salva ainda</strong><span>Finalize uma compra para guardar seu histórico.</span></div>';
+}
+function formatQty(n){return Number(n).toLocaleString('pt-BR',{maximumFractionDigits:2})}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+$('addForm').addEventListener('submit',e=>{e.preventDefault();const name=$('productName').value.trim(),qty=Number($('quantity').value),price=Number($('unitPrice').value);if(!name||!Number.isFinite(qty)||qty<=0||!Number.isFinite(price)||price<0){showToast('Confira o nome, quantidade e preço.');return}state.current.items.push({id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),name,qty,price,done:false});$('productName').value='';$('quantity').value='1';$('unitPrice').value='';save();$('productName').focus();showToast('Produto adicionado!')});
+$('saveBudget').addEventListener('click',()=>{const v=Number($('budgetInput').value);if($('budgetInput').value.trim()!==''&&(!Number.isFinite(v)||v<0)){showToast('Digite um orçamento válido.');return}state.current.budget=v||0;save();showToast('Orçamento atualizado!')});
+$('budgetInput').addEventListener('keydown',e=>{if(e.key==='Enter')$('saveBudget').click()});
+document.querySelectorAll('[data-filter]').forEach(b=>b.addEventListener('click',()=>{filterMode=b.dataset.filter;render()}));
+$('itemsList').addEventListener('click',e=>{const c=e.target.closest('[data-check]'),d=e.target.closest('[data-delete]');if(c){const i=state.current.items.find(x=>x.id===c.dataset.check);if(i)i.done=!i.done;save()}if(d){state.current.items=state.current.items.filter(x=>x.id!==d.dataset.delete);save();showToast('Produto removido.')}});
+$('finishBtn').addEventListener('click',()=>{if(!state.current.items.length){showToast('Adicione produtos antes de finalizar.');return}const h={...JSON.parse(JSON.stringify(state.current)),savedAt:new Date().toISOString(),total:total()};state.history.unshift(h);state.history=state.history.slice(0,50);state.current=blankList('Nova compra');filterMode='all';save();showToast('Compra salva no histórico!')});
+$('clearBtn').addEventListener('click',()=>{if(!state.current.items.length){showToast('A lista já está vazia.');return}if(confirm('Remover todos os produtos da lista atual?')){state.current.items=[];save();showToast('Lista limpa.')}});
+$('newListBtn').addEventListener('click',()=>{if(state.current.items.length&&!confirm('Criar uma nova lista? Os itens atuais não serão salvos no histórico.'))return;const name=prompt('Nome da nova lista:','Compra do mercado');if(name===null)return;state.current=blankList(name.trim()||'Minha compra');filterMode='all';save();showToast('Nova lista criada!')});
+$('historyList').addEventListener('click',e=>{const r=e.target.closest('[data-restore]'),d=e.target.closest('[data-history-delete]');if(r){const h=state.history.find(x=>x.id===r.dataset.restore);if(!h)return;if(state.current.items.length&&!confirm('Substituir a lista atual pela lista salva?'))return;state.current={...JSON.parse(JSON.stringify(h)),id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),createdAt:new Date().toISOString()};delete state.current.savedAt;delete state.current.total;filterMode='all';save();showToast('Lista reaberta!');window.scrollTo({top:0,behavior:'smooth'})}if(d){state.history=state.history.filter(x=>x.id!==d.dataset.historyDelete);save();showToast('Registro excluído.')}});
+$('clearHistoryBtn').addEventListener('click',()=>{if(!state.history.length){showToast('Histórico já está vazio.');return}if(confirm('Apagar todas as listas anteriores?')){state.history=[];save();showToast('Histórico apagado.')}});
+if('serviceWorker' in navigator && location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
+render();
+</script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+MINHA LISTA DE MERCADO — primeira versão
+
+Arquivos:
+- index.html: aplicativo
+- manifest.json: configuração de instalação
+- sw.js: cache para funcionamento offline depois da primeira carga
+- icon.svg: ícone
+
+IMPORTANTE:
+Para instalar na tela inicial do iPhone, o app precisa estar hospedado em um endereço HTTPS. Abrir o arquivo index.html diretamente no iPhone não habilita a instalação PWA completa.
+
+Opções simples de publicação:
+1. GitHub Pages: envie os quatro arquivos para um repositório e ative Pages.
+2. Netlify: publique a pasta ou envie um ZIP do site.
+3. Qualquer hospedagem estática com HTTPS.
+
+No iPhone:
+1. Abra o endereço publicado no Safari.
+2. Toque em Compartilhar.
+3. Escolha "Adicionar à Tela de Início".
+4. Confirme em "Adicionar".
+
+Dados e privacidade:
+- A lista e o histórico ficam no armazenamento local do navegador (localStorage).
+- Os dados não são sincronizados entre dispositivos e podem ser perdidos se os dados do site forem apagados.
+- Para não perder uma compra importante, finalize e guarde os dados em ambiente seguro ou mantenha uma cópia da página/backup.
+
+Recursos incluídos:
+- Adicionar produto, quantidade e preço unitário.
+- Soma automática por item e total da compra.
+- Orçamento, saldo e barra de progresso.
+- Marcar itens no carrinho.
+- Filtros: todos, faltando e no carrinho.
+- Salvar listas anteriores ao finalizar, reabrir ou excluir histórico.
+- Layout responsivo, otimizado para tela pequena.
